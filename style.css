@@ -1,0 +1,91 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    font-family: 'Lato', sans-serif;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.tools_menu {
+    background-color: #cecece;
+    width: 20%;
+    height: 100vh;
+    position: relative;
+}
+
+.main_canvas {
+    width: 80%;
+    height: 100vh;
+    /*background-color: lightblue;*/
+    background: url('http://i.stack.imgur.com/GySvQ.png');
+    clear: both;
+}
+
+.list-group-item {
+    cursor: pointer;
+}
+
+.drag_li {
+    position: absolute;
+    left: 35%;
+    top: 25px;
+}
+
+.twosquared {
+    position: absolute;
+    left: 20%;
+    top: 280px;
+    width: 200px;
+    height: 100px;
+    background-color: #212629;
+}
+
+.drag_li_c {
+    position: absolute;
+    left: 35%;
+    top: 150px;
+}
+
+.rotated {
+    transform: rotate(-90deg);
+}
+
+i {
+    font-size: 120px;
+}
+
+.window {
+    position: absolute;
+    left: 35%;
+    top: 430px;
+    width: 100px;
+    height: 25px;
+    background-color: deepskyblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.door {
+    position: absolute;
+    left: 35%;
+    top: 530px;
+    width: 100px;
+    height: 25px;
+    background-color: saddlebrown;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
