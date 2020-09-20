@@ -1,21 +1,6 @@
 let tool_menu = document.getElementById('tool_menu');
-let twosquare = document.querySelectorAll('.twosquared');
-let window_obj = document.querySelectorAll('.window');
-let doors = document.querySelectorAll('.door');
 let previous_bid = [];
 let previous_name = [];
-
-window_obj.forEach(el => {
-    el.addEventListener('click', () => {
-        el.classList.toggle('rotated');
-    });
-});
-
-doors.forEach(el => {
-    el.addEventListener('click', () => {
-        el.classList.toggle('rotated');
-    });
-});
 
 function bid_add(){
     let bid_namer = document.getElementById('bid_name');
@@ -43,6 +28,10 @@ function clicked(event) {
     let new_id = event.target.id;
     if(event.target.classList.contains('twosquared')){
         event.target.classList.toggle('rotated');
+    }else if(event.target.classList.contains('window')){
+        event.target.classList.toggle('rotated');
+    }else if(event.target.classList.contains('door')){
+        event.target.classList.toggle('rotated');
     }
 
     let obj = {
@@ -53,22 +42,26 @@ function clicked(event) {
         }
     }
 
-    if(obj.table.id === new_id){
-        Swal.fire({
-            icon: 'info',
-            html: '<p id="content">' + obj.table.content + '</p><br>' + obj.table.actions ,
-            showCloseButton: true,
-            showCancelButton: true,
-            focusConfirm: false
-        })
+    if(event.target.classList.contains('window') || event.target.classList.contains('door')){
+        return false;
     }else {
-        Swal.fire({
-            icon: 'error',
-            html: '<p>No table found with this ID</p>',
-            showCloseButton: true,
-            showCancelButton: true,
-            focusConfirm: false
-        })
+        if(obj.table.id === new_id){
+            Swal.fire({
+                icon: 'info',
+                html: '<p id="content">' + obj.table.content + '</p><br>' + obj.table.actions ,
+                showCloseButton: true,
+                showCancelButton: true,
+                focusConfirm: false
+            })
+        }else {
+            Swal.fire({
+                icon: 'error',
+                html: '<p>No table found with this ID</p>',
+                showCloseButton: true,
+                showCancelButton: true,
+                focusConfirm: false
+            })
+        }
     }
 }
 
@@ -91,7 +84,6 @@ function drop(event) {
         new_circle();
     }else if(dm.classList.contains('twosquared')){
         new_double_square();
-        dm.setAttribute('data-target','#' + Math.floor(Math.random() * 10000));
     }else if(dm.classList.contains('window')){
         new_window();
     }else if(dm.classList.contains('door')){
@@ -115,6 +107,7 @@ const new_square = () => {
     new_el.setAttribute('id', Math.floor(Math.random() * 1000));
     new_el.setAttribute('draggable', 'true');
     new_el.setAttribute('ondragstart', 'drag_start(event)');
+    new_el.setAttribute('onclick', 'clicked(event)');
     tool_menu.appendChild(new_el);
 }
 
@@ -125,6 +118,7 @@ const new_circle = () => {
     new_el.setAttribute('id', Math.floor(Math.random() * 1000));
     new_el.setAttribute('draggable', 'true');
     new_el.setAttribute('ondragstart', 'drag_start(event)');
+    new_el.setAttribute('onclick', 'clicked(event)');
     tool_menu.appendChild(new_el);
 }
 
@@ -147,6 +141,7 @@ const new_window = () => {
     new_el.textContent = 'WINDOW';
     new_el.setAttribute('draggable', 'true');
     new_el.setAttribute('ondragstart', 'drag_start(event)');
+    new_el.setAttribute('onclick', 'clicked(event)');
     tool_menu.appendChild(new_el);
 }
 
@@ -158,6 +153,7 @@ const new_doors = () => {
     new_el.textContent = 'DOORS';
     new_el.setAttribute('draggable', 'true');
     new_el.setAttribute('ondragstart', 'drag_start(event)');
+    new_el.setAttribute('onclick', 'clicked(event)');
     tool_menu.appendChild(new_el);
 }
 
