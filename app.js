@@ -117,12 +117,14 @@ function clicked(event) {
 }
 
 function drag_start(event) {
+    event.target.style.cursor = 'grabbing';
     let style = window.getComputedStyle(event.target, null);
     let str = (parseInt(style.getPropertyValue("left")) - event.clientX) + ',' + (parseInt(style.getPropertyValue("top")) - event.clientY) + ',' + event.target.id;
     event.dataTransfer.setData("Text", str);
 }
 
 function drop(event) {
+    event.target.style.cursor = 'grab';
     let offset = event.dataTransfer.getData("Text").split(',');
     let dm = document.getElementById(offset[2]);
     if(dm.classList.contains('fa-square-full')){

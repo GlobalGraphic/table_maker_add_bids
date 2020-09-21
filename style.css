@@ -30,14 +30,11 @@ html {
     clear: both;
 }
 
-.list-group-item {
-    cursor: pointer;
-}
-
 .drag_li {
     position: absolute;
     left: 35%;
     top: 25px;
+    cursor: grab;
 }
 
 .twosquared {
@@ -47,12 +44,14 @@ html {
     width: 200px;
     height: 100px;
     background-color: #212629;
+    cursor: grab;
 }
 
 .drag_li_c {
     position: absolute;
     left: 35%;
     top: 150px;
+    cursor: grab;
 }
 
 .rotated {
@@ -74,6 +73,7 @@ i {
     justify-content: center;
     align-items: center;
     color: white;
+    cursor: grab;
 }
 
 .door {
@@ -87,6 +87,7 @@ i {
     justify-content: center;
     align-items: center;
     color: white;
+    cursor: grab;
 }
 
 .red {
