@@ -1,24 +1,46 @@
 let tool_menu = document.getElementById('tool_menu');
 let previous_bid = [];
 let previous_name = [];
+let bid_namer = document.getElementById('bid_name');
+let bid_value = document.getElementById('bid_value');
+let select_slot = document.getElementById('sel1');
 
 function bid_add(){
-    let bid_namer = document.getElementById('bid_name');
-    let bid_value = document.getElementById('bid_value');
-    let content = document.getElementById('content');
-    let new_bid = document.createElement('p');
-    new_bid.textContent = 'Name: ' + bid_namer.value + ' / ' + 'Value: ' + bid_value.value;
-    content.appendChild(new_bid);
+    let opt = select_slot.options[select_slot.selectedIndex];
+    let booked5 = document.querySelector('.booked5');
+    let name5 = document.querySelector('.name5');
+    let bid5 = document.querySelector('.bid5');
+    let booked7 = document.querySelector('.booked7');
+    let name7 = document.querySelector('.name7');
+    let bid7 = document.querySelector('.bid7');
+    let booked9 = document.querySelector('.booked9');
+    let name9 = document.querySelector('.name9');
+    let bid9 = document.querySelector('.bid9');
+
+    if(opt.value == '5'){
+        booked5.innerHTML = 'Yes';
+        name5.innerHTML = bid_namer.value;
+        bid5.innerHTML = bid_value.value;
+    }else if(opt.value == '7'){
+        booked7.innerHTML = 'Yes';
+        name7.innerHTML = bid_namer.value;
+        bid7.innerHTML = bid_value.value;
+    }else if(opt.value == '9'){
+        booked9.innerHTML = 'Yes';
+        name9.innerHTML = bid_namer.value;
+        bid9.innerHTML = bid_value.value;
+    }
+
     previous_bid.push(Number(bid_value.value));
     previous_name.push(bid_namer.value);
 
-    for(let i = 0; i < previous_bid.length; i++){
-        if(previous_bid[i] < Number(bid_value.value)){
-            for(let j = 0; j < previous_name.length; j++){
-                alert(previous_name[i] + ' was bid out');
-            }
-        }
-    }
+    // for(let i = 0; i < previous_bid.length; i++){
+    //     if(previous_bid[i] < Number(bid_value.value)){
+    //         for(let j = 0; j < previous_name.length; j++){
+    //             alert(previous_name[i] + ' was bid out');
+    //         }
+    //     }
+    // }
 
     bid_namer.value = '';
     bid_value.value = '';
@@ -37,10 +59,40 @@ function clicked(event) {
     let obj = {
         table: {
             id: new_id,
-            content: `this is information for table : ${new_id}`,
-            actions: `<input type="text" id="bid_name"><input type="text" id="bid_value"><button type="button" id="add_new_bid" onclick="bid_add()">Bid</button>`
+            content: `this is information for table : ${new_id}`
         }
     }
+
+    let table = '<table class="table">\n' +
+        '  <thead>\n' +
+        '    <tr>\n' +
+        '      <th scope="col">Slots</th>\n' +
+        '      <th scope="col">Booked</th>\n' +
+        '      <th scope="col">Name</th>\n' +
+        '      <th scope="col">Last Bid</th>\n' +
+        '    </tr>\n' +
+        '  </thead>\n' +
+        '  <tbody>\n' +
+        '    <tr class="slot_5">\n' +
+        '      <th scope="row">5PM</th>\n' +
+        '      <td class="booked5">No</td>\n' +
+        '      <td class="name5">-</td>\n' +
+        '      <td class="bid5">0</td>\n' +
+        '    </tr>\n' +
+        '    <tr class="slot_7">\n' +
+        '      <th scope="row">7PM</th>\n' +
+        '      <td class="booked7">No</td>\n' +
+        '      <td class="name7">-</td>\n' +
+        '      <td class="bid7">0</td>\n' +
+        '    </tr>\n' +
+        '    <tr class="slot_9">\n' +
+        '      <th scope="row">9PM</th>\n' +
+        '      <td class="booked9">No</td>\n' +
+        '      <td class="name9">-</td>\n' +
+        '      <td class="bid9">0</td>\n' +
+        '    </tr>\n' +
+        '  </tbody>\n' +
+        '</table>';
 
     if(event.target.classList.contains('window') || event.target.classList.contains('door')){
         return false;
@@ -48,9 +100,8 @@ function clicked(event) {
         if(obj.table.id === new_id){
             Swal.fire({
                 icon: 'info',
-                html: '<p id="content">' + obj.table.content + '</p><br>' + obj.table.actions ,
+                html: '<p id="content">' + obj.table.content + '</p>' + table + '<br>' + '<button id="slot9" type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-primary">Book</button>',
                 showCloseButton: true,
-                showCancelButton: true,
                 focusConfirm: false
             })
         }else {
@@ -63,10 +114,6 @@ function clicked(event) {
             })
         }
     }
-}
-
-function remove(event){
-    event.target.remove();
 }
 
 function drag_start(event) {

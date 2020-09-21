@@ -89,3 +89,11 @@ i {
     color: white;
 }
 
+.red {
+    background-color: red;
+}
+
+#exampleModal {
+    z-index: 15000;
+}
+

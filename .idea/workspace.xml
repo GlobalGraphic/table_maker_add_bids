@@ -27,7 +27,7 @@
       <option name="presentableId" value="Default" />
       <updated>1600456564591</updated>
       <workItem from="1600456565653" duration="22556000" />
-      <workItem from="1600585856855" duration="5172000" />
+      <workItem from="1600585856855" duration="14043000" />
     </task>
     <servers />
   </component>
@@ -35,6 +35,10 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="548" y="266" key="IDE.errors.dialog" timestamp="1600680876596">
+      <screen x="0" y="23" width="1920" height="1003" />
+    </state>
+    <state x="548" y="266" key="IDE.errors.dialog/0.23.1920.1003/1920.148.1680.1027@0.23.1920.1003" timestamp="1600680876596" />
     <state x="538" y="74" width="604" height="870" key="find.popup" timestamp="1600468849180">
       <screen x="0" y="23" width="1680" height="973" />
     </state>
