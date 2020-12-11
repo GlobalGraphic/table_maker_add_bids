@@ -276,8 +276,16 @@ function drag_start(event) {
 
 function drop(event) {
     event.target.style.cursor = 'grab';
+
     let offset = event.dataTransfer.getData("Text").split(',');
     let dm = document.getElementById(offset[2]);
+
+    let del = document.createElement('i');
+    del.setAttribute('class', 'fas fa-times');
+    del.setAttribute('onclick', 'deleteObject(event)');
+    del.style.cursor = 'pointer';
+    dm.appendChild(del);
+
     if(dm.classList.contains('fa-square-full')){
         new_square();
     }else if(dm.classList.contains('fa-circle')){
@@ -308,7 +316,7 @@ function drop(event) {
     }else if(dm.classList.contains('window')){
         notification.textContent = "Window added successfully";
     }else if(dm.classList.contains('door')){
-        notification.textContent = "Window added successfully";
+        notification.textContent = "Doors added successfully";
     }
 
     setTimeout(() => {
@@ -318,6 +326,24 @@ function drop(event) {
     }, 2000);
 
     return false;
+}
+
+function deleteObject(event) {
+    event.stopPropagation();
+    let el = event.target.parentNode;
+    el.remove();
+
+    notification.style.opacity = "1";
+    notification.style.transition = "all .5s ease";
+    notification.style.border = "1px solid red";
+    notification.textContent = `Object with ID: ${event.target.parentNode.id} was deleted !`;
+
+    setTimeout(() => {
+        notification.style.opacity = "0";
+        notification.style.transition = "all .5s ease";
+        notification.style.border = "";
+        notification.textContent = "";
+    }, 2000);
 }
 
 function drag_over(event) {

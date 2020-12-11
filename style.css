@@ -71,6 +71,15 @@ html {
     top: -15px;
 }
 
+.fa-times {
+    cursor: pointer;
+    font-size: 15px;
+    color: red;
+    position: absolute;
+    left: -20px;
+    top: -15px;
+}
+
 .twosquared {
     position: absolute;
     left: 20%;
