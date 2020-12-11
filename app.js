@@ -99,7 +99,9 @@ window.addEventListener('load', () => {
                                                                                                             notification.textContent = "";
                                                                                                         }, 2000);
                                                                                                         localStorage.setItem('tutorial', 'finished');
-                                                                                                        window.location = window.location;
+                                                                                                        setTimeout(() => {
+                                                                                                            window.location = window.location;
+                                                                                                        }, 2000);
                                                                                                     }, 5000);
                                                                                                 }
                                                                                             });
