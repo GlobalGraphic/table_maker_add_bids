@@ -301,11 +301,6 @@ function drop(event) {
     }
     dm.style.left = (event.clientX + parseInt(offset[0], 10)) + 'px';
     dm.style.top = (event.clientY + parseInt(offset[1], 10)) + 'px';
-    event.preventDefault();
-
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-    });
 
     notification.style.opacity = "1";
     notification.style.transition = "all .5s ease";
@@ -326,6 +321,12 @@ function drop(event) {
         notification.style.transition = "all .5s ease";
         notification.textContent = "";
     }, 2000);
+
+    event.preventDefault();
+
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    });
 
     return false;
 }
