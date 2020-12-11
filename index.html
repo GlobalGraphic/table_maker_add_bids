@@ -17,14 +17,22 @@
 </nav>
 
 <div class="wrapper">
-    <div class="tools_menu" id="tool_menu">
-        <i class="fas fa-square-full drag_li" id="square" draggable="true" ondragstart="drag_start(event)" onclick="clicked(event)"></i>
-        <i class="fas fa-circle drag_li_c" id="circle" draggable="true" ondragstart="drag_start(event)" onclick="clicked(event)"></i>
-        <div class="twosquared" id="twosquare" draggable="true" ondragstart="drag_start(event)" onclick="clicked(event)"></div>
-        <div class="window" id="window" draggable="true" ondragstart="drag_start(event)" onclick="clicked(event)">WINDOW</div>
-        <div class="door" id="door" draggable="true" ondragstart="drag_start(event)" onclick="clicked(event)">DOORS</div>
+    <div class="tools_menu shadow-lg" id="tool_menu">
+        <i class="fas fa-square-full drag_li" id="square" draggable="true" ondragstart="drag_start(event)"></i>
+        <i class="fas fa-circle drag_li_c" id="circle" draggable="true" ondragstart="drag_start(event)"></i>
+        <div class="twosquared" id="twosquare" draggable="true" ondragstart="drag_start(event)">
+            <i class="fas fa-undo" id="rota" onclick="rotate(event)" data-toggle="tooltip" data-placement="top" title="Rotate Double Table"></i>
+        </div>
+        <div class="window" id="window" draggable="true" ondragstart="drag_start(event)">
+            WINDOW
+            <i class="fas fa-undo" onclick="rotate(event)" data-toggle="tooltip" data-placement="top" title="Rotate Window"></i>
+        </div>
+        <div class="door" id="door" draggable="true" ondragstart="drag_start(event)">
+            DOORS
+            <i class="fas fa-undo" onclick="rotate(event)" data-toggle="tooltip" data-placement="top" title="Rotate Doors"></i>
+        </div>
     </div>
-    <div class="main_canvas" ondragover="drag_over(event)" ondrop="drop(event)"></div>
+    <div class="main_canvas shadow-lg" id="floor" ondragover="drag_over(event)" ondrop="drop(event)"></div>
 </div>
 
 <!-- bid modal -->
@@ -54,6 +62,8 @@
     </div>
 </div>
 
+<div class="shadow-lg notification"></div>
+
 <!-- Bootstrap files -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -62,6 +72,8 @@
 <!-- font awesome kit -->
 <script src="https://kit.fontawesome.com/bf71c6be93.js" crossorigin="anonymous"></script>
 <!-- main js file -->
+<script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
+<script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
