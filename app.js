@@ -362,6 +362,8 @@ function deleteObject(event) {
     object_counts--;
     
     if(object_counts < 5) {
+        delete_all.style.opacity = "0";
+        delete_all.style.transition = "all .5s ease";
         export_btn.style.opacity = "0";
         export_btn.style.transition = "all .5s ease";
     }
@@ -488,7 +490,19 @@ delete_all.addEventListener('click', e => {
         let all_restaurant_elements = document.querySelectorAll('[data-all]');
         let start_elements = document.querySelectorAll('[data-all-init]');
         all_restaurant_elements.forEach(el => {
+            // let observer = new MutationObserver(mutations => {
+            //     mutations.forEach(mutation => {
+            //         console.log(mutation);
+            //     });
+            // });
+
+            // let config = {
+            //     childList: true
+            // }
+
+            // observer.observe(tool_menu, config);
             el.remove();
+
             start_elements.forEach(start => {
                 start.removeAttribute('style');
                 start.removeAttribute('onclick');
