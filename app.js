@@ -279,6 +279,7 @@ function drag_start(event) {
     let str = (parseInt(style.getPropertyValue("left")) - event.clientX) + ',' + (parseInt(style.getPropertyValue("top")) - event.clientY) + ',' + event.target.id;
     event.dataTransfer.setData("Text", str);
     event.target.setAttribute('onClick','clicked(event)');
+    return false;
 }
 
 function drop(event) {
