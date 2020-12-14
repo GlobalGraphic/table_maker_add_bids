@@ -12,24 +12,30 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbarek">
     <a class="navbar-brand" href="#">Table Maker</a>
+    <button class="btn btn-success mr-3" id="export">Export restaurant floor</button>
+    <button class="btn btn-danger" id="delete_obj">Delete all objects</button>
 </nav>
 
-<div class="wrapper">
+<div class="wrapper" id="wrapper">
     <div class="tools_menu shadow-lg" id="tool_menu">
-        <i class="fas fa-square-full drag_li" id="square" draggable="true" ondragstart="drag_start(event)"></i>
-        <i class="fas fa-circle drag_li_c" id="circle" draggable="true" ondragstart="drag_start(event)"></i>
-        <div class="twosquared" id="twosquare" draggable="true" ondragstart="drag_start(event)">
+        <i class="fas fa-square-full drag_li" id="square" data-all-init="true" draggable="true" ondragstart="drag_start(event)"></i>
+        <i class="fas fa-circle drag_li_c" id="circle" data-all-init="true" draggable="true" ondragstart="drag_start(event)"></i>
+        <div class="twosquared" id="twosquare" draggable="true" data-all-init="true" ondragstart="drag_start(event)">
             <i class="fas fa-undo" id="rota" onclick="rotate(event)" data-toggle="tooltip" data-placement="top" title="Rotate Double Table"></i>
         </div>
-        <div class="window" id="window" draggable="true" ondragstart="drag_start(event)">
+        <div class="window" id="window" draggable="true" data-all-init="true" ondragstart="drag_start(event)">
             WINDOW
             <i class="fas fa-undo" onclick="rotate(event)" data-toggle="tooltip" data-placement="top" title="Rotate Window"></i>
         </div>
-        <div class="door" id="door" draggable="true" ondragstart="drag_start(event)">
+        <div class="door" id="door" draggable="true" data-all-init="true" ondragstart="drag_start(event)">
             DOORS
             <i class="fas fa-undo" onclick="rotate(event)" data-toggle="tooltip" data-placement="top" title="Rotate Doors"></i>
+        </div>
+        <div class="wall" id="wall" draggable="true" data-all-init="true" ondragstart="drag_start(event)">
+            WALL
+            <i class="fas fa-undo" onclick="rotate(event)" data-toggle="tooltip" data-placement="top" title="Rotate Wall"></i>
         </div>
     </div>
     <div class="main_canvas shadow-lg" id="floor" ondragover="drag_over(event)" ondrop="drop(event)"></div>
@@ -62,6 +68,36 @@
     </div>
 </div>
 
+<!-- bid modal -->
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">PRE-ordered meal</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h2>Appetisers</h2>
+                <p>Warm orange & rice vinegar dressing, ruby grapefruit, crisp capers, sauteed sugar snap</p><br>
+
+                <h2>Oysters</h2>
+                <p>6 grilled rock oysters, wilted spinach, hollandaise glaze</p><br>
+
+                <h2>SOLE’s Seafood Towers</h2>
+                <p>SOLE’s Captain Seafood Tower</p><br>
+
+                <h2>Entrées</h2>
+                <p>Whole Dover sole, lemon butter, choice of side</p><br>
+
+                <h2>Desserts</h2>
+                <p>Selection of Wexford Ice Cream</p><br>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="shadow-lg notification"></div>
 
 <!-- Bootstrap files -->
@@ -75,5 +111,6 @@
 <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
 <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
 <script src="app.js"></script>
+<script src="./html2canvas.min.js"></script>
 </body>
 </html>

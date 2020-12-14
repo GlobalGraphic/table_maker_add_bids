@@ -6,6 +6,9 @@ let bid_value = document.getElementById('bid_value');
 let select_slot = document.getElementById('sel1');
 let notification = document.querySelector('.notification');
 let main_canvas = document.querySelector('.main_canvas');
+let delete_all = document.getElementById('delete_obj');
+let export_btn = document.getElementById('export');
+let object_counts = 0;
 
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
@@ -240,7 +243,7 @@ function clicked(event) {
         if(obj.table.id === new_id){
             Swal.fire({
                 icon: 'info',
-                html: '<p id="content">' + obj.table.content + '</p>' + table + '<br>' + '<button id="slot9" type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-primary">Book</button>',
+                html: '<p id="content">' + obj.table.content + '</p>' + table + '<br>' + '<button id="slot9" type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-primary">Book</button><button id="prebook" type="button" data-toggle="modal" data-target="#exampleModal1" class="btn btn-success ml-3">Show Pre-booked meal</button>',
                 showCloseButton: true,
                 focusConfirm: false
             })
@@ -265,6 +268,8 @@ function rotate(event) {
         el.classList.toggle('rotated');
     }else if(el.classList.contains('door')){
         el.classList.toggle('rotated');
+    }else if(el.classList.contains('wall')){
+        el.classList.toggle('rotated');
     }
 }
 
@@ -278,6 +283,14 @@ function drag_start(event) {
 
 function drop(event) {
     event.target.style.cursor = 'grab';
+    object_counts++;
+
+    if(object_counts >= 5) {
+        delete_all.style.opacity = "1";
+        delete_all.style.transition = "all .5s ease";
+        export_btn.style.opacity = "1";
+        export_btn.style.transition = "all .5s ease";
+    }
 
     let offset = event.dataTransfer.getData("Text").split(',');
     let dm = document.getElementById(offset[2]);
@@ -298,7 +311,10 @@ function drop(event) {
         new_window();
     }else if(dm.classList.contains('door')){
         new_doors();
+    }else if(dm.classList.contains('wall')){
+        new_wall();
     }
+
     dm.style.left = (event.clientX + parseInt(offset[0], 10)) + 'px';
     dm.style.top = (event.clientY + parseInt(offset[1], 10)) + 'px';
 
@@ -314,6 +330,8 @@ function drop(event) {
         notification.textContent = "Window added successfully";
     }else if(dm.classList.contains('door')){
         notification.textContent = "Doors added successfully";
+    }else if(dm.classList.contains('wall')){
+        notification.textContent = "Wall added successfully";
     }
 
     setTimeout(() => {
@@ -341,6 +359,13 @@ function deleteObject(event) {
     notification.style.border = "1px solid red";
     notification.textContent = `Object with ID: ${event.target.parentNode.id} was deleted !`;
 
+    object_counts--;
+    
+    if(object_counts < 5) {
+        export_btn.style.opacity = "0";
+        export_btn.style.transition = "all .5s ease";
+    }
+
     setTimeout(() => {
         notification.style.opacity = "0";
         notification.style.transition = "all .5s ease";
@@ -348,6 +373,8 @@ function deleteObject(event) {
         notification.textContent = "";
     }, 2000);
 }
+
+
 
 function drag_over(event) {
     event.preventDefault();
@@ -361,6 +388,7 @@ const new_square = () => {
     new_el.setAttribute('id', Math.floor(Math.random() * 1000));
     new_el.setAttribute('draggable', 'true');
     new_el.setAttribute('ondragstart', 'drag_start(event)');
+    new_el.setAttribute('data-all','true');
     tool_menu.appendChild(new_el);
 }
 
@@ -371,6 +399,7 @@ const new_circle = () => {
     new_el.setAttribute('id', Math.floor(Math.random() * 1000));
     new_el.setAttribute('draggable', 'true');
     new_el.setAttribute('ondragstart', 'drag_start(event)');
+    new_el.setAttribute('data-all','true');
     tool_menu.appendChild(new_el);
 }
 
@@ -381,6 +410,7 @@ const new_double_square = () => {
     new_el.setAttribute('id', Math.floor(Math.random() * 1000));
     new_el.setAttribute('draggable', 'true');
     new_el.setAttribute('ondragstart', 'drag_start(event)');
+    new_el.setAttribute('data-all','true');
     tool_menu.appendChild(new_el);
 
     let rotate_arrow = document.createElement('i');
@@ -389,6 +419,7 @@ const new_double_square = () => {
     rotate_arrow.setAttribute('data-toggle', 'tooltip');
     rotate_arrow.setAttribute('data-placement', 'top');
     rotate_arrow.setAttribute('title', 'Rotate Double Table');
+    new_el.setAttribute('data-all','true');
     new_el.appendChild(rotate_arrow);
 }
 
@@ -400,6 +431,7 @@ const new_window = () => {
     new_el.textContent = 'WINDOW';
     new_el.setAttribute('draggable', 'true');
     new_el.setAttribute('ondragstart', 'drag_start(event)');
+    new_el.setAttribute('data-all','true');
     tool_menu.appendChild(new_el);
 
     let rotate_arrow = document.createElement('i');
@@ -419,6 +451,7 @@ const new_doors = () => {
     new_el.textContent = 'DOORS';
     new_el.setAttribute('draggable', 'true');
     new_el.setAttribute('ondragstart', 'drag_start(event)');
+    new_el.setAttribute('data-all','true');
     tool_menu.appendChild(new_el);
 
     let rotate_arrow = document.createElement('i');
@@ -429,3 +462,86 @@ const new_doors = () => {
     rotate_arrow.setAttribute('title', 'Rotate Doors');
     new_el.appendChild(rotate_arrow);
 }
+
+// generating new element after drop
+const new_wall = () => {
+    let new_el = document.createElement('div');
+    new_el.setAttribute('class', 'wall');
+    new_el.setAttribute('id', Math.floor(Math.random() * 1000));
+    new_el.textContent = 'WALL';
+    new_el.setAttribute('draggable', 'true');
+    new_el.setAttribute('ondragstart', 'drag_start(event)');
+    new_el.setAttribute('data-all','true');
+    tool_menu.appendChild(new_el);
+
+    let rotate_arrow = document.createElement('i');
+    rotate_arrow.setAttribute('class', 'fas fa-undo');
+    rotate_arrow.setAttribute('onclick', 'rotate(event)');
+    rotate_arrow.setAttribute('data-toggle', 'tooltip');
+    rotate_arrow.setAttribute('data-placement', 'top');
+    rotate_arrow.setAttribute('title', 'Rotate Doors');
+    new_el.appendChild(rotate_arrow);
+}
+
+delete_all.addEventListener('click', e => {
+    if(delete_all.style.opacity == "1"){
+        let all_restaurant_elements = document.querySelectorAll('[data-all]');
+        let start_elements = document.querySelectorAll('[data-all-init]');
+        all_restaurant_elements.forEach(el => {
+            el.remove();
+            start_elements.forEach(start => {
+                start.removeAttribute('style');
+                start.removeAttribute('onclick');
+                document.querySelectorAll('.fa-times').forEach(x => {
+                    x.remove();
+                })
+            });
+        });
+
+        delete_all.style.opacity = "0";
+        delete_all.style.transition = "all .5s ease";
+        export_btn.style.opacity = "0";
+        export_btn.style.transition = "all .5s ease";
+
+        notification.style.opacity = "1";
+        notification.style.transition = "all .5s ease";
+        notification.textContent = "All restaurant objects were deleted!";
+        notification.style.border = "1px solid red";
+        
+        setTimeout(() => {
+            notification.style.opacity = "0";
+            notification.style.transition = "all .5s ease";
+            notification.style.border = "";
+            notification.textContent = "";
+        }, 3000);
+
+        object_counts = 0;
+    }else {
+        console.log('err deleting');
+    }
+});
+
+
+export_btn.addEventListener('click', e => {
+    if(export_btn.style.opacity == "1"){
+        html2canvas(document.getElementById('wrapper')).then(canvas => {
+            const base64image = canvas.toDataURL("image/png");
+            let export_img = document.createElement('a');
+            export_img.setAttribute('href', base64image);
+            export_img.download = "exported_floor.png";
+            export_img.click();
+        });
+
+        notification.style.opacity = "1";
+        notification.style.transition = "all .5s ease";
+        notification.textContent = "Restaurant floor exported.";
+        
+        setTimeout(() => {
+            notification.style.opacity = "0";
+            notification.style.transition = "all .5s ease";
+            notification.textContent = "";
+        }, 3000);
+    }else {
+        console.log('err exporting');
+    }
+});
