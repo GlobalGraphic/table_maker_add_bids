@@ -10,6 +10,7 @@ let delete_all = document.getElementById('delete_obj');
 let export_btn = document.getElementById('export');
 let object_counts = 0;
 
+
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 })
@@ -352,15 +353,50 @@ function drop(event) {
 
 function deleteObject(event) {
     event.stopPropagation();
-    let el = event.target.parentNode;
-    el.remove();
+    let el = event.target.parentNode;    
+
+    switch(el.id) {
+        default:
+            el.remove();
+            break;
+        case "square":
+            el.style.left = "35%";
+            el.style.top = "25px";
+            event.target.remove();
+            break;
+        case "circle":
+            el.style.left = "35%";
+            el.style.top = "150px";
+            event.target.remove();
+            break;
+        case "twosquare":
+            el.style.left = "20%";
+            el.style.top = "280px";
+            event.target.remove();
+            break;
+        case "window":
+            el.style.left = "35%";
+            el.style.top = "430px";
+            event.target.remove();
+            break;
+        case "door":
+            el.style.left = "35%";
+            el.style.top = "530px";
+            event.target.remove();
+            break;
+        case "wall":
+            el.style.left = "35%";
+            el.style.top = "630px";
+            event.target.remove();
+            break;
+    }
+
+    object_counts--;
 
     notification.style.opacity = "1";
     notification.style.transition = "all .5s ease";
     notification.style.border = "1px solid red";
-    notification.textContent = `Object with ID: ${event.target.parentNode.id} was deleted !`;
-
-    object_counts--;
+    notification.textContent = `Object with ID: ${el.id} was deleted !`;
     
     if(object_counts < 5) {
         delete_all.style.opacity = "0";
@@ -491,17 +527,6 @@ delete_all.addEventListener('click', e => {
         let all_restaurant_elements = document.querySelectorAll('[data-all]');
         let start_elements = document.querySelectorAll('[data-all-init]');
         all_restaurant_elements.forEach(el => {
-            // let observer = new MutationObserver(mutations => {
-            //     mutations.forEach(mutation => {
-            //         console.log(mutation);
-            //     });
-            // });
-
-            // let config = {
-            //     childList: true
-            // }
-
-            // observer.observe(tool_menu, config);
             el.remove();
 
             start_elements.forEach(start => {

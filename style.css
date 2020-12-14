@@ -60,6 +60,7 @@ html {
     left: 35%;
     top: 25px;
     cursor: grab;
+    will-change: transform,left,top;
 }
 
 .fa-undo {
@@ -88,6 +89,7 @@ html {
     height: 100px;
     background-color: #212629;
     cursor: grab;
+    will-change: transform,left,top;
 }
 
 .drag_li_c {
@@ -95,6 +97,7 @@ html {
     left: 35%;
     top: 150px;
     cursor: grab;
+    will-change: transform,left,top;
 }
 
 .rotated {
@@ -117,6 +120,7 @@ i {
     align-items: center;
     color: white;
     cursor: grab;
+    will-change: transform,left,top;
 }
 
 .door {
@@ -131,6 +135,7 @@ i {
     align-items: center;
     color: white;
     cursor: grab;
+    will-change: transform,left,top;
 }
 
 .wall {
@@ -145,6 +150,7 @@ i {
     align-items: center;
     color: white;
     cursor: grab;
+    will-change: transform,left,top;
 }
 
 #delete_obj, #export {
